@@ -1,0 +1,45 @@
+{
+  "providers": [
+    {
+      "id": "example-percent",
+      "name": "示例平台（占比型）",
+      "enabled": false,
+      "request": {
+        "url": "https://api.example.com/v1/limits",
+        "method": "POST",
+        "where": "body",
+        "headers": "",
+        "params": "apiId: {{你的标识}}",
+        "use_system_proxy": false
+      },
+      "extract": {
+        "used": "data.limits.currentDailyCost",
+        "limit": "data.limits.dailyCostLimit"
+      },
+      "baseline": false,
+      "period": "none",
+      "week_start": "monday",
+      "display": { "kind": "percent", "unit": "$" }
+    },
+    {
+      "id": "example-balance",
+      "name": "示例平台（余额型）",
+      "enabled": false,
+      "request": {
+        "url": "https://api.example.com/user/balance",
+        "method": "GET",
+        "where": "query",
+        "headers": "Authorization: Bearer @my-token.token",
+        "params": "",
+        "use_system_proxy": false
+      },
+      "extract": {
+        "used": "balance_infos[].total_balance",
+        "limit": ""
+      },
+      "baseline": false,
+      "period": "none",
+      "display": { "kind": "amount", "unit": "¥" }
+    }
+  ]
+}
